@@ -2,7 +2,7 @@
 
 baseline(){
 main_vgg(){
-CUDA_VISIBLE_DEVICES=$1 python  main_cifar_vgg_log.py  ./data/cifar.python --dataset cifar10 --arch vgg \
+CUDA_VISIBLE_DEVICES=$1 python  main_cifar_vgg_log.py  ./data/cifar.python --dataset cifar100 --arch vgg \
 --save_path $2
 }
 #run baseline
@@ -13,19 +13,19 @@ CUDA_VISIBLE_DEVICES=$1 python  main_cifar_vgg_log.py  ./data/cifar.python --dat
 
 prune_pretrain_and_finetune(){
 #prune_pretrain
-python PFEC_vggprune.py --model ./logs/PFEC/finetune_40_varience1/checkpoint.pth.tar --dataset cifar10 --save ./logs/PFEC/finetune_testacc
+python PFEC_vggprune.py --model ./logs/PFEC/finetune_40_varience1/checkpoint.pth.tar --dataset cifar100 --save ./logs/PFEC/finetune_testacc
 
 #finetune
-(python PFEC_finetune.py --refine ./logs/PFEC/prune/pruned.pth.tar --dataset cifar10 --arch vgg --depth 16 --save ./logs/PFEC/finetune40_varience1)&
-(python PFEC_finetune.py --refine ./logs/PFEC/prune/pruned.pth.tar --dataset cifar10 --arch vgg --depth 16 --save ./logs/PFEC/finetune40_varience2)&
-(python PFEC_finetune.py --refine ./logs/PFEC/prune/pruned.pth.tar --dataset cifar10 --arch vgg --depth 16 --save ./logs/PFEC/finetune40_varience3)&
+(python PFEC_finetune.py --refine ./logs/PFEC/prune/pruned.pth.tar --dataset cifar100 --arch vgg --depth 16 --save ./logs/PFEC/finetune40_varience1)&
+(python PFEC_finetune.py --refine ./logs/PFEC/prune/pruned.pth.tar --dataset cifar100 --arch vgg --depth 16 --save ./logs/PFEC/finetune40_varience2)&
+(python PFEC_finetune.py --refine ./logs/PFEC/prune/pruned.pth.tar --dataset cifar100 --arch vgg --depth 16 --save ./logs/PFEC/finetune40_varience3)&
 
-(python PFEC_finetune.py --refine ./logs/PFEC/prune/pruned.pth.tar --dataset cifar10 --arch vgg --depth 16 --save ./logs/PFEC/finetune160_varience1  --epochs 160)&
-(python PFEC_finetune.py --refine ./logs/PFEC/prune/pruned.pth.tar --dataset cifar10 --arch vgg --depth 16 --save ./logs/PFEC/finetune160_varience2  --epochs 160)&
-(python PFEC_finetune.py --refine ./logs/PFEC/prune/pruned.pth.tar --dataset cifar10 --arch vgg --depth 16 --save ./logs/PFEC/finetune160_varience3  --epochs 160)&
+(python PFEC_finetune.py --refine ./logs/PFEC/prune/pruned.pth.tar --dataset cifar100 --arch vgg --depth 16 --save ./logs/PFEC/finetune160_varience1  --epochs 160)&
+(python PFEC_finetune.py --refine ./logs/PFEC/prune/pruned.pth.tar --dataset cifar100 --arch vgg --depth 16 --save ./logs/PFEC/finetune160_varience2  --epochs 160)&
+(python PFEC_finetune.py --refine ./logs/PFEC/prune/pruned.pth.tar --dataset cifar100 --arch vgg --depth 16 --save ./logs/PFEC/finetune160_varience3  --epochs 160)&
 
 eval_vgg(){
-CUDA_VISIBLE_DEVICES=$1 python  pruning_cifar_vgg.py  ./data/cifar.python --dataset cifar10 --arch vgg \
+CUDA_VISIBLE_DEVICES=$1 python  pruning_cifar_vgg.py  ./data/cifar.python --dataset cifar100 --arch vgg \
 --evaluate \
 --save_path $2 \
 --rate_norm $3 \
@@ -44,20 +44,20 @@ eval_vgg 0 /home/yahe/compress/filter_similarity/logs/PFEC/finetune40_varience3/
 
 prune_from_scratch(){
 scratch_full_vgg(){
-CUDA_VISIBLE_DEVICES=$1 python  main_cifar_vgg_log.py  ./data/cifar.python --dataset cifar10 --arch vgg \
+CUDA_VISIBLE_DEVICES=$1 python  main_cifar_vgg_log.py  ./data/cifar.python --dataset cifar100 --arch vgg \
 --save_path $2 --use_scratch
 }
 #get full scratch model
 scratch_full_vgg 0 ./logs/off/scratch/full_model
 #prune full scratch
-python PFEC_vggprune.py --model ./logs/PFEC/scratch/full_model/checkpoint.pth.tar --dataset cifar10 --save ./logs/PFEC/scratch/pruned_model
+python PFEC_vggprune.py --model ./logs/PFEC/scratch/full_model/checkpoint.pth.tar --dataset cifar100 --save ./logs/PFEC/scratch/pruned_model
 }
 
 
 run_finetune_scratch(){
 #finetune small scratch model
 finetune_scratch(){
-CUDA_VISIBLE_DEVICES=$1 python  main_cifar_vgg_log.py  ./data/cifar.python --dataset cifar10 --arch vgg \
+CUDA_VISIBLE_DEVICES=$1 python  main_cifar_vgg_log.py  ./data/cifar.python --dataset cifar100 --arch vgg \
 --save_path $2 \
 --use_scratch --train_scratch $3
 }
