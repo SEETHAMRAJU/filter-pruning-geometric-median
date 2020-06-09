@@ -10,13 +10,13 @@ resnet20 54
 }
 
 pruning_scratch_vgg(){
-CUDA_VISIBLE_DEVICES=$1 python ./VGG/pruning_cifar_vgg.py  ./data/cifar.python --dataset cifar10 --arch vgg \
+CUDA_VISIBLE_DEVICES=$1 python ./VGG/pruning_cifar_vgg.py  ./data/cifar.python --dataset cifar100 --arch vgg \
 --save_path $2 \
 --rate_norm $3 \
 --rate_dist $4 
 }
 pruning_pretrain_160_precfg_vgg(){
-CUDA_VISIBLE_DEVICES=$1 python  pruning_cifar_vgg.py  ./data/cifar.python --dataset cifar10 --arch vgg \
+CUDA_VISIBLE_DEVICES=$1 python  pruning_cifar_vgg.py  ./data/cifar.python --dataset cifar100 --arch vgg \
 --save_path $2 \
 --rate_norm $3 \
 --rate_dist $4 \
@@ -25,14 +25,14 @@ CUDA_VISIBLE_DEVICES=$1 python  pruning_cifar_vgg.py  ./data/cifar.python --data
 }
 
 pruning_pretrain_160_mycfg_vgg(){
-CUDA_VISIBLE_DEVICES=$1 python  pruning_cifar_vgg.py  ./data/cifar.python --dataset cifar10 --arch vgg \
+CUDA_VISIBLE_DEVICES=$1 python  pruning_cifar_vgg.py  ./data/cifar.python --dataset cifar100 --arch vgg \
 --save_path $2 \
 --rate_norm $3 \
 --rate_dist $4 \
 --use_pretrain --use_state_dict --lr 0.1 --epochs 160
 }
 pruning_pretrain_40_precfg_vgg(){
-CUDA_VISIBLE_DEVICES=$1 python  pruning_cifar_vgg.py  ./data/cifar.python --dataset cifar10 --arch vgg \
+CUDA_VISIBLE_DEVICES=$1 python  pruning_cifar_vgg.py  ./data/cifar.python --dataset cifar100 --arch vgg \
 --save_path $2 \
 --rate_norm $3 \
 --rate_dist $4 \
@@ -41,7 +41,7 @@ CUDA_VISIBLE_DEVICES=$1 python  pruning_cifar_vgg.py  ./data/cifar.python --data
 }
 
 pruning_pretrain_40_mycfg_vgg(){
-CUDA_VISIBLE_DEVICES=$1 python  pruning_cifar_vgg.py  ./data/cifar.python --dataset cifar10 --arch vgg \
+CUDA_VISIBLE_DEVICES=$1 python  pruning_cifar_vgg.py  ./data/cifar.python --dataset cifar100 --arch vgg \
 --save_path $2 \
 --rate_norm $3 \
 --rate_dist $4 \
